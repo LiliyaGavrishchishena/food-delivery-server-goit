@@ -1,16 +1,20 @@
 {
-  "name": "demo",
-  "version": "1.7.1",
-  "description": "",
+  "name": "food-delivery-server-goit",
+  "version": "1.0.0",
+  "description": "food-delivery-server-goit",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
     "debug": "node --inspect index.js"
   },
-  "author": "",
+  "author": "Liliya Gavrishchishena <Liliya.Gavrishchishena@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LiliyaGavrishchishena/food-delivery-server-goit.git"
   }
 }
