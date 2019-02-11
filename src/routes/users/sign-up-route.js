@@ -1,33 +1,37 @@
 const fs = require('fs');
 const path = require('path');
-const qs = require('querystring');
 
 const saveUser = user => {
-  const userName = user.username;
-  const filePath = path.join(__dirname, '../../db/users', `${userName}.json`);
+  const filePath = path.join(
+    __dirname,
+    '../../',
+    'db/users',
+    `${user.username}.json`
+  );
 
-  fs.writeFile(filePath, JSON.stringify(user), function(err) {
+  fs.writeFile(filePath, JSON.stringify(user), error => {
     if (error) throw error;
-    console.log(`${userName}.json was created`);
   });
 };
 
 const signUpRoute = (request, response) => {
   if (request.method === 'POST') {
-    let body = '';
+    let data = '';
 
-    request.on('data', function(data) {
-      body += data;
-
-      console.log('Incoming data!!!!');
+    request.on('data', chunk => {
+      data += chunk;
     });
 
-    request.on('end', function() {
-      const post = qs.parse(body);
-      saveUser(post);
-      const response = { status: 'success', user: post };
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(response));
+    request.on('end', () => {
+      const user = JSON.parse(data);
+      saveUser(user);
+
+      const responseSuccess = JSON.stringify({
+        status: 'success',
+        user: user
+      });
+      response.writeHead(201, { 'Content-Type': 'application/json' });
+      response.end(responseSuccess);
     });
   }
 };
