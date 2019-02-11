@@ -2,15 +2,18 @@ const fs = require('fs');
 const path = require('path');
 
 const productsRoute = (request, response) => {
-  const filePath = path.join(__dirname, '../../../', 'assets', 'first-bg.jpg');
-  const image = fs.statSync(filePath);
+  const AllProducts = path.join(
+    __dirname,
+    '../../',
+    'db/products',
+    'all-products.json'
+  );
 
   response.writeHead(200, {
-    'Content-Type': 'image/jpeg',
-    'Content-Length': image.size
+    'Content-Type': 'application/json'
   });
 
-  const readStream = fs.createReadStream(filePath);
+  const readStream = fs.createReadStream(AllProducts);
 
   readStream.pipe(response);
 };
