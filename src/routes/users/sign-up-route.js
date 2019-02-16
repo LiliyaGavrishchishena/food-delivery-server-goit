@@ -20,6 +20,8 @@ const signUpRoute = (request, response) => {
 
     request.on('data', chunk => {
       data += chunk;
+
+      if (body.chunk > 1e6) request.connection.destroy();
     });
 
     request.on('end', () => {
