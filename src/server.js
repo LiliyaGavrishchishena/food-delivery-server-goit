@@ -1,28 +1,24 @@
-const https = require('https');
-const url = require('url');
-const fs = require('fs');
+const app = require('./modules/app');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./routes/router');
-const getRouteHandler = require('./helpers/get-route-handler');
-const path = require('path');
-const logger = morgan('combined');
-const hostname = '127.0.0.1';
 
-const https_options = {
-  key: fs.readFileSync(path.join(__dirname, './ssl_cert/private.key')),
-  cert: fs.readFileSync(path.join(__dirname, './ssl_cert/private.crt'))
+const errorHandler = (req, res, next) => {
+  res.status(500).send('No such page');
+  next();
 };
 
 const startServer = port => {
-  const server = https.createServer(https_options, (request, response) => {
-    const parsedUrl = url.parse(request.url);
+  app
+    .use(bodyParser.urlencoded({ extended: false }))
+    .use(bodyParser.json())
+    .use(morgan('dev'))
+    .use('/', router)
+    .use(errorHandler);
 
-    const func = getRouteHandler(router, parsedUrl.pathname) || router.default;
-    logger(request, response, () => func(request, response));
-  });
+  app.listen(port);
 
-  server.listen(port);
-  console.log(`Server running at https://${hostname}:${port}/`);
+  console.log('Server was started at http://localhost:' + port);
 };
 
 module.exports = startServer;
