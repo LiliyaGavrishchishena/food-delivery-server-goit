@@ -3,7 +3,7 @@ const mainRoute = require('./main/main');
 const getProducts = require('./products/get-products');
 const getProductId = require('./products/get-product-id');
 const getUser = require('./user/get-user');
-const getSaveImageHandlers = require('./image/save-image-multipart');
+const getSaveImageHandlers = require('./images/save-image-multipart');
 const createUser = require('./user/create-user');
 const createOrder = require('./orders/create-order');
 
@@ -28,6 +28,6 @@ apiRoutes
   .get('/users/:id', getUser)
   .post('/users', middlewareExample, createUser)
   .post('/orders', createOrder)
-  .post('/image', getSaveImageHandlers());
+  .post('/images', getSaveImageHandlers());
 
 module.exports = apiRoutes;

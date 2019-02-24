@@ -20,7 +20,6 @@ const getProductsIds = ids => {
   const productsByIds = products
     .filter(product => ids.includes(product.id))
     .map(item => item.id);
-
   return productsByIds;
 };
 
