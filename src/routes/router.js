@@ -1,12 +1,33 @@
-const mainRoute = require('./main/mainRoute');
-const productsRoute = require('./products/productsRoute');
-const signUpRoute = require('./users/sign-up-route');
+const express = require('express');
+const mainRoute = require('./main/main');
+const getProducts = require('./products/get-products');
+const getProductId = require('./products/get-product-id');
+const getUser = require('./user/get-user');
+const getSaveImageHandlers = require('./images/save-image-multipart');
+const createUser = require('./user/create-user');
+const createOrder = require('./orders/create-order');
 
-const router = {
-  '/': mainRoute,
-  '/signup': signUpRoute,
-  '/products': productsRoute,
-  default: mainRoute
+const apiRoutes = express.Router();
+
+const middlewareExample = (req, resp, next) => {
+  if (req.body.userName) {
+    next();
+    return;
+  }
+
+  resp.status(400);
+  resp.json({
+    error: 'user has no "name" field'
+  });
 };
 
-module.exports = router;
+apiRoutes
+  .get('/', mainRoute)
+  .get('/products', getProducts)
+  .get('/products/:id', getProductId)
+  .get('/users/:id', getUser)
+  .post('/users', middlewareExample, createUser)
+  .post('/orders', createOrder)
+  .post('/images', getSaveImageHandlers());
+
+module.exports = apiRoutes;
