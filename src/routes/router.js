@@ -10,7 +10,7 @@ const createOrder = require('./orders/create-order');
 const apiRoutes = express.Router();
 
 const middlewareExample = (req, resp, next) => {
-  if (req.body.userName) {
+  if (req.body.username) {
     next();
     return;
   }
