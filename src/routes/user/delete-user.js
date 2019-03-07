@@ -4,21 +4,21 @@ const getUser = (request, response) => {
   const id = request.params.id;
 
   const sendResponse = user => {
-    response.set('Content-type', 'application/json');
     response.status(200);
-    response.json({ status: 'success', user });
+    response.json(user);
   };
 
   const sendError = () => {
     response.status(400);
     response.json({
-      error: 'user was not found'
+      error: 'user was not saved'
     });
   };
 
-  const findUser = User.findById(id);
-
-  findUser.then(sendResponse).catch(sendError);
+  User.findById(id)
+    .remove()
+    .then(sendResponse)
+    .catch(sendError);
 };
 
 module.exports = getUser;

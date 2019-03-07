@@ -1,27 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
-
-const filePath = path.join(__dirname, '../../', 'db/users', 'all-users.json');
-const writeFile = util.promisify(fs.writeFile);
-
-const saveNewUser = data => {
-  const userJson = fs.readFileSync(filePath, 'utf8');
-  const users = JSON.parse(userJson);
-
-  const dataStr = JSON.stringify([...users, data]);
-
-  return writeFile(filePath, dataStr);
-};
+const User = require('../../db/schemas/user');
+const bcrypt = require('bcrypt');
 
 const createUser = (request, response) => {
   const user = request.body;
-  const userData = Object.assign({}, user, { id: Date.now() });
 
-  const sendResponse = () => {
+  const hashedPassword = bcrypt.hashSync(user.password, 10);
+  const userData = { ...user, password: hashedPassword };
+
+  const newUser = new User(userData);
+
+  const sendResponse = user => {
+    console.log(user);
+
     response.json({
       status: 'success',
-      user: userData
+      user
     });
   };
 
@@ -32,7 +25,8 @@ const createUser = (request, response) => {
     });
   };
 
-  saveNewUser(userData)
+  newUser
+    .save()
     .then(sendResponse)
     .catch(sendError);
 };

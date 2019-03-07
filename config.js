@@ -1,4 +1,4 @@
-const dbUser = 'admin';
+const dbUser = 'liliya';
 const dbPassword = 'qwezxc123';
 
 const config = {
