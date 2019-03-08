@@ -39,7 +39,7 @@ apiRoutes
 
   .post('/orders', createOrder)
   .get('/orders', getOrders)
-  .get('/orders:id', getOrder)
+  .get('/orders/:id', getOrder)
   .put('/orders/:id', updateOrder)
   .delete('/orders/:id', deleteOrder);
 

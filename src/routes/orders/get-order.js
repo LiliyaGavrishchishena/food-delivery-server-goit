@@ -2,7 +2,6 @@ const Order = require('../../db/schemas/order');
 
 const getOrder = (request, response) => {
   const id = request.params.id;
-
   const sendResponse = order => {
     response.set('Content-type', 'application/json');
     response.status(200);

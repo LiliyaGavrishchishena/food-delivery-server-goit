@@ -7,12 +7,28 @@ const orderSchema = new Schema(
   {
     creator: { type: String, required: true },
     productsList: [
-      { productId: String, type: { type: String }, itemsCount: Number }
+      {
+        productId: String,
+        type: {
+          type: String,
+          enum: ['M', 'XL', 'XXL'],
+          default: 'M'
+        },
+        itemsCount: Number
+      }
     ],
-    deliveryType: String,
+    deliveryType: {
+      type: String,
+      enum: ['delivery', 'office'],
+      default: 'delivery'
+    },
     deliveryAdress: String,
     sumToPay: Number,
-    status: String
+    status: {
+      type: String,
+      enum: ['inProgress', 'declined', 'finished', 'failed'],
+      default: 'inProgress'
+    }
   },
   {
     timestamps: true

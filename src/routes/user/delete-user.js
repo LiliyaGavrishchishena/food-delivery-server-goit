@@ -11,7 +11,7 @@ const getUser = (request, response) => {
   const sendError = () => {
     response.status(400);
     response.json({
-      error: 'user was not saved'
+      error: 'user was not deleted'
     });
   };
 
