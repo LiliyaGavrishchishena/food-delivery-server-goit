@@ -1,33 +1,46 @@
 const express = require('express');
+
 const mainRoute = require('./main/main');
+
+const createProduct = require('./products/create-product');
+const getProduct = require('./products/get-product');
 const getProducts = require('./products/get-products');
-const getProductId = require('./products/get-product-id');
-const getUser = require('./user/get-user');
-const getSaveImageHandlers = require('./images/save-image-multipart');
+const updateProduct = require('./products/update-product');
+const deleteProduct = require('./products/delete-product');
+
 const createUser = require('./user/create-user');
+const getUser = require('./user/get-user');
+const getUsers = require('./user/get-users');
+const updateUser = require('./user/update-user');
+const deleteUser = require('./user/delete-user');
+
 const createOrder = require('./orders/create-order');
+const getOrder = require('./orders/get-order');
+const getOrders = require('./orders/get-orders');
+const updateOrder = require('./orders/update-order');
+const deleteOrder = require('./orders/delete-order');
 
 const apiRoutes = express.Router();
 
-const middlewareExample = (req, resp, next) => {
-  if (req.body.username) {
-    next();
-    return;
-  }
-
-  resp.status(400);
-  resp.json({
-    error: 'user has no "name" field'
-  });
-};
-
 apiRoutes
   .get('/', mainRoute)
+
+  .post('/products', createProduct)
   .get('/products', getProducts)
-  .get('/products/:id', getProductId)
+  .get('/products/:id', getProduct)
+  .put('/products/:id', updateProduct)
+  .delete('/products/:id', deleteProduct)
+
+  .post('/users', createUser)
+  .get('/users', getUsers)
   .get('/users/:id', getUser)
-  .post('/users', middlewareExample, createUser)
+  .put('/users/:id', updateUser)
+  .delete('/users/:id', deleteUser)
+
   .post('/orders', createOrder)
-  .post('/images', getSaveImageHandlers());
+  .get('/orders', getOrders)
+  .get('/orders/:id', getOrder)
+  .put('/orders/:id', updateOrder)
+  .delete('/orders/:id', deleteOrder);
 
 module.exports = apiRoutes;
