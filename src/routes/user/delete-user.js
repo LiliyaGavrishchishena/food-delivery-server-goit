@@ -3,9 +3,9 @@ const User = require('../../db/schemas/user');
 const getUser = (request, response) => {
   const id = request.params.id;
 
-  const sendResponse = user => {
+  const sendResponse = () => {
     response.status(200);
-    response.json(user);
+    response.json({ status: 'User deleted' });
   };
 
   const sendError = () => {

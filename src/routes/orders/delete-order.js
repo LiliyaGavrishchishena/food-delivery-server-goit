@@ -3,15 +3,15 @@ const Order = require('../../db/schemas/order');
 const getOrder = (request, response) => {
   const id = request.params.id;
 
-  const sendResponse = order => {
+  const sendResponse = () => {
     response.status(200);
-    response.json(order);
+    response.json({ status: 'Order deleted' });
   };
 
   const sendError = () => {
     response.status(400);
     response.json({
-      error: 'order was not saved'
+      error: 'order was not deleted'
     });
   };
 
