@@ -10,8 +10,6 @@ const createUser = (request, response) => {
   const newUser = new User(userData);
 
   const sendResponse = user => {
-    console.log(user);
-
     response.json({
       status: 'success',
       user

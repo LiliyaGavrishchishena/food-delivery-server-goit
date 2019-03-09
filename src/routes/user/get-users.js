@@ -6,11 +6,16 @@ const getAllUser = (request, response) => {
     response.json(user);
   };
 
+  const sendError = error => {
+    response.status(400);
+    response.json({
+      error: error
+    });
+  };
+
   User.find()
     .then(sendResponse)
-    .catch(err => {
-      console.error(err);
-    });
+    .catch(sendError);
 };
 
 module.exports = getAllUser;

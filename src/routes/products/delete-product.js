@@ -3,15 +3,15 @@ const Product = require('../../db/schemas/product');
 const getProduct = (request, response) => {
   const id = request.params.id;
 
-  const sendResponse = product => {
+  const sendResponse = () => {
     response.status(200);
-    response.json(product);
+    response.json({ status: 'Product deleted' });
   };
 
   const sendError = () => {
     response.status(400);
     response.json({
-      error: 'product was not saved'
+      error: 'product was not deleted'
     });
   };
 

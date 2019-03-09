@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const timestamp = require('../middleware/timestamp');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema(
   {
-    username: { type: String, required: true, unique: true },
-    email: { type: String, index: true, unique: true, required: true },
+    username: { type: String, required: true },
+    email: { type: String, required: true },
     password: { type: String, required: true },
     favoriteProducts: Array,
     viewedProducts: Array,
@@ -18,7 +17,6 @@ const userSchema = new Schema(
 );
 
 userSchema.plugin(timestamp);
-userSchema.plugin(uniqueValidator);
 
 const User = mongoose.model('User', userSchema);
 

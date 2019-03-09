@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const timestamp = require('../middleware/timestamp');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const orderSchema = new Schema(
   {
     creator: { type: String, required: true },
     productsList: [
       {
-        productId: String,
+        product: String,
         type: {
           type: String,
           enum: ['M', 'XL', 'XXL'],
@@ -36,7 +35,6 @@ const orderSchema = new Schema(
 );
 
 orderSchema.plugin(timestamp);
-orderSchema.plugin(uniqueValidator);
 
 const Order = mongoose.model('Order', orderSchema);
 

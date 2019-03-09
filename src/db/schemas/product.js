@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const timestamp = require('../middleware/timestamp');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const productSchema = new Schema(
   {
@@ -9,18 +8,32 @@ const productSchema = new Schema(
       type: String,
       default: Date.now()
     },
-    name: String,
+    name: {
+      type: String,
+      required: true
+    },
     description: String,
-    price: Number,
+    price: {
+      type: Number,
+      required: true
+    },
     currency: {
       type: String,
+      enum: ['UAH', 'USD', 'EUR'],
       default: 'UAH'
     },
     categories: {
       type: Array,
-      default: ['pizza']
+      required: true
     },
-    likes: { type: Number, default: 0 }
+    createdId: {
+      type: String,
+      default: '1'
+    },
+    likes: {
+      type: Number,
+      default: 0
+    }
   },
   {
     timestamps: true
@@ -28,7 +41,6 @@ const productSchema = new Schema(
 );
 
 productSchema.plugin(timestamp);
-productSchema.plugin(uniqueValidator);
 
 const Product = mongoose.model('Product', productSchema);
 

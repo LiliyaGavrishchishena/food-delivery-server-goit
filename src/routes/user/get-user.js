@@ -6,19 +6,22 @@ const getUser = (request, response) => {
   const sendResponse = user => {
     response.set('Content-type', 'application/json');
     response.status(200);
+    if (user === null) {
+      return response.json({ status: 'no user' });
+    }
     response.json({ status: 'success', user });
   };
 
-  const sendError = () => {
+  const sendError = error => {
     response.status(400);
     response.json({
-      error: 'user was not found'
+      error: error
     });
   };
 
-  const findUser = User.findById(id);
-
-  findUser.then(sendResponse).catch(sendError);
+  User.findById(id)
+    .then(sendResponse)
+    .catch(sendError);
 };
 
 module.exports = getUser;
