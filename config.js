@@ -2,9 +2,8 @@ const dbUser = 'liliya';
 const dbPassword = 'qwezxc123';
 
 const config = {
+  secret: 'key123',
   port: 8080,
-  dbUser,
-  dbPassword,
   databaseUrl: `mongodb+srv://${dbUser}:${dbPassword}@foody-lljkr.mongodb.net/test?retryWrites=true`
 };
 
