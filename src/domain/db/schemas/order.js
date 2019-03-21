@@ -7,7 +7,10 @@ const orderSchema = new Schema(
     creator: { type: String, required: true },
     productsList: [
       {
-        product: String,
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product'
+        },
         type: {
           type: String,
           enum: ['M', 'XL', 'XXL'],
