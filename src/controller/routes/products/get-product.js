@@ -16,7 +16,7 @@ const getProduct = (request, response) => {
     });
   };
 
-  const findProduct = Product.findById(id);
+  const findProduct = Product.findById(id).populate('Ingredient');
 
   findProduct.then(sendResponse).catch(sendError);
 };

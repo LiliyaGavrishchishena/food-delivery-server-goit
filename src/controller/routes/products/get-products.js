@@ -17,9 +17,10 @@ const getAllProducts = (request, response) => {
       error: 'product was not found'
     });
   };
-  Product.find(category)
-    .then(sendResponse)
-    .catch(sendError);
+
+  const findProduct = Product.find(category).populate('Ingredient');
+
+  findProduct.then(sendResponse).catch(sendError);
 };
 
 module.exports = getAllProducts;

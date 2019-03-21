@@ -2,6 +2,7 @@ const Comment = require('../../../domain/db/schemas/comment');
 
 const getAllProducts = (request, response) => {
   const query = request.query.productId;
+  const id = query ? { productId: query } : {};
 
   const sendResponse = comments => {
     response.set('Content-type', 'application/json');
@@ -17,8 +18,9 @@ const getAllProducts = (request, response) => {
       error: 'comment was not found'
     });
   };
+  console.log(query);
 
-  Comment.find({ product: query })
+  Comment.find(id)
     .then(sendResponse)
     .catch(sendError);
 };
