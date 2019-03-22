@@ -8,8 +8,6 @@ const createComment = (request, response) => {
   const newComment = new Comment(commentData);
 
   const sendResponse = comment => {
-    console.log(comment);
-
     response.json({
       status: 'success',
       comment

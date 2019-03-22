@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const timestamp = require('../middleware/timestamp');
+const timestamps = require('../middleware/timestamp');
 
 const commentSchema = new Schema(
   {

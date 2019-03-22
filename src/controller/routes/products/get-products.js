@@ -3,6 +3,7 @@ const Product = require('../../../domain/db/schemas/product');
 const getAllProducts = (request, response) => {
   const query = request.query.categories;
   const category = query ? { categories: query } : {};
+
   const sendResponse = products => {
     response.set('Content-type', 'application/json');
     response.status(200);
@@ -18,9 +19,12 @@ const getAllProducts = (request, response) => {
     });
   };
 
-  const findProduct = Product.find(category).populate('Ingredient');
-
-  findProduct.then(sendResponse).catch(sendError);
+  Product.find(category)
+    .populate('Ingredient')
+    .exec(function(err, product) {
+      if (err) return sendError(err);
+      sendResponse(product);
+    });
 };
 
 module.exports = getAllProducts;

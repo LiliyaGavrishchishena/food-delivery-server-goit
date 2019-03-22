@@ -2,7 +2,7 @@ const Comment = require('../../../domain/db/schemas/comment');
 
 const getAllProducts = (request, response) => {
   const query = request.query.productId;
-  const id = query ? { productId: query } : {};
+  const id = query ? { product: query } : {};
 
   const sendResponse = comments => {
     response.set('Content-type', 'application/json');
@@ -20,9 +20,17 @@ const getAllProducts = (request, response) => {
   };
   console.log(query);
 
+  // Comment.find(id)
+  //   .then(sendResponse)
+  //   .catch(sendError);
+
   Comment.find(id)
-    .then(sendResponse)
-    .catch(sendError);
+    .populate('Product')
+    .populate('User')
+    .exec(function(err, comment) {
+      if (err) return sendError(err);
+      sendResponse(comment);
+    });
 };
 
 module.exports = getAllProducts;
