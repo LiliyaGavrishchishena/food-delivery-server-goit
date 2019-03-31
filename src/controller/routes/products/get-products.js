@@ -1,4 +1,5 @@
 const Product = require('../../../domain/db/schemas/product');
+const Ingredients = require('../../../domain/db/schemas/ingredients');
 
 const getAllProducts = (request, response) => {
   const query = request.query.categories;
@@ -19,9 +20,10 @@ const getAllProducts = (request, response) => {
     });
   };
 
-  Product.find(category)
-    .populate('Ingredient')
+  Product.find()
+    .populate('ingredients')
     .exec(function(err, product) {
+      console.log(err);
       if (err) return sendError(err);
       sendResponse(product);
     });

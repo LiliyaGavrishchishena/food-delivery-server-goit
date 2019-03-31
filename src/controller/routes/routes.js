@@ -37,7 +37,7 @@ apiRoutes
   .post('/auth/register', createUser)
   .post('/auth/login', authenticate)
 
-  .use(verifyToken)
+  // .use(verifyToken)
 
   .get('/auth/logout', logout)
   .get('/auth/current', currentUser)

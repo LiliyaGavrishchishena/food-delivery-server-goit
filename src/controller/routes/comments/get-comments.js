@@ -20,13 +20,9 @@ const getAllProducts = (request, response) => {
   };
   console.log(query);
 
-  // Comment.find(id)
-  //   .then(sendResponse)
-  //   .catch(sendError);
-
   Comment.find(id)
-    .populate('Product')
-    .populate('User')
+    .populate('product')
+    .populate('author')
     .exec(function(err, comment) {
       if (err) return sendError(err);
       sendResponse(comment);
